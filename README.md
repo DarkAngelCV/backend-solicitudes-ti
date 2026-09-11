@@ -1,4 +1,3 @@
-````markdown
 # Sistema de Gestión de Solicitudes de Soporte TI
 
 Proyecto desarrollado con NestJS para gestionar solicitudes de soporte TI.
@@ -211,5 +210,3 @@ Se probaron los principales endpoints utilizando Swagger y Thunder Client:
 * Validar cambios de estado.
 * Consultar IDs que no existen.
 
-```
-```
