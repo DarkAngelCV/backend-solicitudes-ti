@@ -12,35 +12,35 @@ Se debe crear una base de datos llamada `solicitudes_ti`.
 
 También se debe crear un archivo `.env` en la carpeta principal del proyecto con la configuración de conexión a MySQL:
 
-```env
+
 DB_HOST=localhost
 DB_PORT=3306
 DB_USERNAME=root
 DB_PASSWORD=....
 DB_DATABASE=solicitudes_ti
-```
+
 
 
 ## Instalación y ejecución
 
 Primero se clona el repositorio y se entra a la carpeta del proyecto.
 
-```bash
+
 git clone https://github.com/DarkAngelCV/backend-solicitudes-ti.git
 cd backend-solicitudes-ti
-```
+
 
 Después se instalan las dependencias:
 
-```bash
+
 npm install
-```
+
 
 Para iniciar el proyecto:
 
-```bash
+
 npm run start:dev
-```
+
 
 El servidor se ejecuta en `http://localhost:3000`.
 
