@@ -10,6 +10,8 @@ import {
   Query,
 } from '@nestjs/common';
 
+import { ApiQuery } from '@nestjs/swagger';
+
 import { SolicitudesService } from './solicitudes.service.js';
 import { Solicitud } from './entities/solicitud.entity/solicitud.entity.js';
 import { CreateSolicitudDto } from './dto/create-solicitud.dto.js';
@@ -27,6 +29,9 @@ export class SolicitudesController {
   }
 
   @Get('buscar')
+  @ApiQuery({ name: 'estado', required: false })
+  @ApiQuery({ name: 'prioridad', required: false })
+  @ApiQuery({ name: 'categoria', required: false })
   async buscar(
     @Query('estado') estado?: string,
     @Query('prioridad') prioridad?: string,
