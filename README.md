@@ -1,212 +1,57 @@
-# Sistema de Gestión de Solicitudes de Soporte TI
+# Sistema de Solicitudes de Soporte TI
 
-Proyecto desarrollado con NestJS para gestionar solicitudes de soporte TI.
+Este proyecto consiste en una API para gestionar solicitudes de soporte TI. Permite crear, consultar, modificar y eliminar solicitudes, además de buscar solicitudes según su estado, prioridad o categoría.
 
-La aplicación permite crear, consultar, buscar, actualizar y eliminar solicitudes, utilizando MySQL para guardar la información.
+## Tecnologías
 
-## Tecnologías utilizadas
-
-- NestJS
-- TypeScript
-- MySQL
-- TypeORM
-- Class Validator
-- Swagger
-- Node.js
+El proyecto fue desarrollado utilizando NestJS, TypeScript, MySQL, TypeORM, Swagger y class-validator.
 
 ## Requisitos
 
-Para ejecutar el proyecto se necesita tener instalado:
+Para ejecutar el proyecto se necesita tener instalado Node.js, npm y MySQL.
 
-- Node.js
-- npm
-- MySQL
-- Git
+## Configuración
 
-## Instalación
+Primero se debe crear una base de datos llamada `solicitudes_ti`.
 
-Primero clonar el repositorio:
+Luego se debe crear un archivo `.env` en la carpeta principal del proyecto con los datos de conexión a MySQL.
 
-```bash
-git clone URL_DEL_REPOSITORIO
-````
 
-Entrar a la carpeta:
-
-```bash
-cd backend-solicitudes-ti
-```
-
-Instalar las dependencias:
-
-```bash
-npm install
-```
-
-## Configuración de la base de datos
-
-Crear una base de datos MySQL llamada:
-
-```text
-solicitudes_ti
-```
-
-Luego crear un archivo `.env` en la carpeta principal del proyecto.
-
-Ejemplo:
-
-```env
 DB_HOST=localhost
 DB_PORT=3306
 DB_USERNAME=root
 DB_PASSWORD=TU_CONTRASEÑA
 DB_DATABASE=solicitudes_ti
-```
 
-La contraseña debe ser la de tu instalación local de MySQL.
 
-## Ejecutar el proyecto
+## Instalación
 
-Para iniciar el servidor:
+Después de clonar el proyecto, se deben instalar las dependencias con `npm install`.
 
-```bash
-npm run start:dev
-```
-
-El servidor se ejecuta en:
-
-```text
-http://localhost:3000
-```
+Para iniciar el proyecto se puede utilizar `npm run start:dev`.
 
 ## Swagger
 
-La documentación de los endpoints se puede revisar desde:
+La documentación de la API está disponible en `http://localhost:3000/api`.
 
-```text
-http://localhost:3000/api
-```
+Desde Swagger se pueden probar los distintos endpoints del sistema.
 
 ## Endpoints
 
-### Obtener todas las solicitudes
+El sistema cuenta con endpoints para crear, consultar, modificar y eliminar solicitudes.
 
-```http
-GET /solicitudes
-```
+También existe una opción de búsqueda que permite filtrar las solicitudes por estado, prioridad y categoría.
 
-### Obtener una solicitud
+## Reglas
 
-```http
-GET /solicitudes/:id
-```
+Las solicitudes se crean inicialmente con estado Pendiente. La fecha de solicitud no puede ser posterior a la fecha actual.
 
-### Crear una solicitud
+Los estados disponibles son Pendiente, En Proceso y Finalizada. Las prioridades disponibles son Baja, Media, Alta y Crítica.
 
-```http
-POST /solicitudes
-```
+Una solicitud que ya está Finalizada no puede volver a Pendiente y solamente se pueden eliminar solicitudes que estén Finalizadas.
 
-Ejemplo:
+## Desarrollo
 
-```json
-{
-  "titulo": "Problema con impresora",
-  "descripcion": "La impresora no funciona correctamente",
-  "cliente": "Pedro Perez",
-  "categoria": "Hardware",
-  "prioridad": "Alta",
-  "fechaSolicitud": "2026-09-11"
-}
-```
+El proyecto se desarrolló en cuatro etapas. Primero se creó la estructura del proyecto y la conexión con MySQL. Después se implementó el CRUD de solicitudes.
 
-El estado se asigna automáticamente como `Pendiente`.
-
-### Actualizar una solicitud
-
-```http
-PUT /solicitudes/:id
-```
-
-### Eliminar una solicitud
-
-```http
-DELETE /solicitudes/:id
-```
-
-Solo se pueden eliminar solicitudes que estén en estado `Finalizada`.
-
-### Buscar solicitudes
-
-Por estado:
-
-```http
-GET /solicitudes/buscar?estado=Pendiente
-```
-
-Por prioridad:
-
-```http
-GET /solicitudes/buscar?prioridad=Alta
-```
-
-Por categoría:
-
-```http
-GET /solicitudes/buscar?categoria=Redes
-```
-
-También se pueden combinar filtros:
-
-```http
-GET /solicitudes/buscar?categoria=Redes&estado=Pendiente
-```
-
-## Reglas de negocio
-
-* El título debe tener mínimo 5 caracteres.
-* El cliente es obligatorio.
-* La descripción debe tener mínimo 15 caracteres.
-* Las categorías disponibles son Hardware, Software, Redes, Seguridad y Soporte Usuario.
-* Las prioridades disponibles son Baja, Media, Alta y Crítica.
-* Las solicitudes nuevas quedan automáticamente en estado `Pendiente`.
-* La fecha de solicitud no puede ser posterior a la fecha actual.
-* Una solicitud solo puede eliminarse cuando está `Finalizada`.
-* Una solicitud `Finalizada` no puede volver a `Pendiente`.
-* Si se busca, actualiza o elimina una solicitud que no existe, se devuelve un error.
-
-## Etapas del proyecto
-
-### Etapa 1
-
-Creación de la estructura inicial del proyecto y los módulos principales.
-
-### Etapa 2
-
-Configuración de MySQL, TypeORM y las validaciones de las solicitudes.
-
-### Etapa 3
-
-Implementación del CRUD, búsquedas y reglas de negocio.
-
-### Etapa 4
-
-Pruebas mediante Swagger y revisión final del proyecto.
-
-## Pruebas realizadas
-
-Se probaron los principales endpoints utilizando Swagger y Thunder Client:
-
-* Crear solicitudes.
-* Consultar solicitudes.
-* Buscar por estado.
-* Buscar por prioridad.
-* Buscar por categoría.
-* Combinar filtros.
-* Actualizar solicitudes.
-* Eliminar solicitudes.
-* Validar fechas.
-* Validar datos obligatorios.
-* Validar cambios de estado.
-* Consultar IDs que no existen.
-
+En la tercera etapa se agregaron las validaciones y reglas de negocio. Finalmente se agregó la documentación mediante Swagger y se completó el README.
