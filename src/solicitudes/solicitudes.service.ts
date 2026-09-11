@@ -26,18 +26,62 @@ export class SolicitudesService {
     prioridad?: string,
     categoria?: string,
   ): Promise<Solicitud[]> {
-    const query = this.solicitudRepository.createQueryBuilder('solicitud');
+    const estadosValidos = [
+      'Pendiente',
+      'En Proceso',
+      'Finalizada',
+    ];
+
+    const prioridadesValidas = [
+      'Baja',
+      'Media',
+      'Alta',
+      'Crítica',
+    ];
+
+    const categoriasValidas = [
+      'Hardware',
+      'Software',
+      'Redes',
+      'Seguridad',
+      'Soporte Usuario',
+    ];
+
+    if (estado && !estadosValidos.includes(estado)) {
+      throw new BadRequestException(
+        'Estado no válido. Debe ser Pendiente, En Proceso o Finalizada',
+      );
+    }
+
+    if (prioridad && !prioridadesValidas.includes(prioridad)) {
+      throw new BadRequestException(
+        'Prioridad no válida. Debe ser Baja, Media, Alta o Crítica',
+      );
+    }
+
+    if (categoria && !categoriasValidas.includes(categoria)) {
+      throw new BadRequestException(
+        'Categoría no válida. Debe ser Hardware, Software, Redes, Seguridad o Soporte Usuario',
+      );
+    }
+
+    const query =
+      this.solicitudRepository.createQueryBuilder('solicitud');
 
     if (estado) {
       query.andWhere('solicitud.estado = :estado', { estado });
     }
 
     if (prioridad) {
-      query.andWhere('solicitud.prioridad = :prioridad', { prioridad });
+      query.andWhere('solicitud.prioridad = :prioridad', {
+        prioridad,
+      });
     }
 
     if (categoria) {
-      query.andWhere('solicitud.categoria = :categoria', { categoria });
+      query.andWhere('solicitud.categoria = :categoria', {
+        categoria,
+      });
     }
 
     return query.getMany();
